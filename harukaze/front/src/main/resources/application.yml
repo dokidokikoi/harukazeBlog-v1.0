@@ -1,0 +1,26 @@
+server:
+  port: 8081
+
+  tomcat:
+    max-http-form-post-size: 10MB
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:
+    username: 
+    password: 
+  servlet:
+    multipart:
+      max-request-size: 20MB
+      max-file-size: 2MB
+  redis:
+    host: 
+    password: 
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**Mapper.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  type-aliases-package: com.harukaze.front.entity
+

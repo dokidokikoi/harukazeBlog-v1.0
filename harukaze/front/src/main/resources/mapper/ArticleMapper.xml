@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harukaze.front.mapper.ArticleMapper">
+    <select id="selectAllArticleByPage" resultType="Article">
+        select * from ms_article
+        <where>
+            is_delete = #{isDeleted}
+            <if test="categoryId != null">
+                and category_id = #{categoryId}
+            </if>
+            <if test="tagId != null">
+                and id in (select article_id from ms_article_tag where tag_id = #{tagId})
+            </if>
+            <if test="year != null and month != null and year.length>0 and month.length>0">
+                and (YEAR(FROM_UNIXTIME(create_date/1000)) = #{year} and MONTH(FROM_UNIXTIME(create_date/1000)) = #{month})
+            </if>
+            <if test="query != null and query != ''">
+                and title like #{query}
+            </if>
+            order by create_date desc, weight desc
+        </where>
+    </select>
+</mapper>
